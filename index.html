@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TibiaME Timers</title>
+<style>
+body {
+    background-color: #333; /* Dark background color */
+    color: white; /* Text color */
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 17px;
+}
+
+.tab {
+    background-color: #444;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 11px;
+    margin-left: 17px;
+}
+
+.tab.shown {
+    background-color: #00a5ff;
+}
+
+.myButton {
+    width: 111px;
+    height: 31px;
+    margin: 2px;
+    font-size: 18px;
+    background-color: #00a5ff;
+	color: #fdfdfd;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    position: relative;
+}
+
+.bAurea {
+    background-color: #0075ff;
+}
+
+.bPentora {
+    background-color: #A033FF;
+}
+
+.bLeviatacle {
+    background-color: #ee1493;
+}
+
+.bGorgoros {
+    background-color: #46bc00;
+}
+
+.bRiftion {
+    background-color: #fc4446;
+}
+   /* #B8860B (Gold)
+  //  #FF5733 (Coral)
+   // #9932CC (DarkOrchid)
+   // #20B2AA (LightSeaGreen) #008080
+	*/
+   
+.bDoratia {
+    background-color: #20B2AA;
+}
+
+.bHunterra {
+    background-color: #bebe00;
+}
+
+.bOrthoma {
+    background-color: #F05733;
+}
+
+.bTrocker {
+    background-color: #666666;
+}
+
+.bAkrathes {
+    background-color: #bDb586;
+}
+
+.bFrostisso {
+    background-color: #7Da8E6;
+}
+
+.bAshmor {
+    background-color: #FF5733;
+}
+
+.bTwins {
+    background-color: #00cc66;
+}
+
+.bWar {
+    background-color: DodgerBlue;
+}
+
+.bWiz {
+    background-color: Violet;
+}
+
+.myButton:disabled {
+    background-color: #444;
+    cursor: not-allowed;
+}
+
+.timer {
+    margin-top: 5px;
+    margin-left: 9px;
+    width: 80px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.textGrey {
+    color: #888;
+}
+
+.textRoyalblue {
+    color: royalblue;
+}
+
+.textGreen {
+    color: green;
+}
+
+.textYellow {
+    color: yellow;
+}
+
+.textOrange {
+    color: orange;
+}
+
+.textRed {
+    color: tomato;
+}
+
+.timeDisplay {
+    margin-top: 5px;
+    margin-left: 15px;
+    color: #888;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.shiftedTimer {
+    margin-left: 19px; /* Adjust the margin to shift the timer*/
+}
+
+.shiftedTimeDisplay {
+    margin-left: 15px; /* Adjust the margin to shift the timeDisplay */
+}
+
+.quest {}
+.focus {}
+.boss {}
+.misc {}
+.other {}
+.noTimer {}
+
+.visible {
+    display: inline-block;
+}
+
+.invisible,
+.invisible * {
+    display: none;
+}
+</style>
+<script>
+
+window.onload = function() {
+	
+	const resetTime = 1;
+
+    const tabs = document.querySelectorAll('.tab');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+			switch (tab.id) {
+            	case 'tQuest':
+                	var tabButtons = document.querySelectorAll('.quest');
+                    var restOfButtons = document.querySelectorAll('.boss, .other');
+                    restOfButtons.forEach(function(element) {
+                    	element.classList.add('invisible');
+                    	element.classList.remove('visible');
+                    });
+                    tabButtons.forEach(function(element) {
+                    	element.classList.remove('invisible');
+                    	element.classList.add('visible');
+                    });
+                    break;
+                case 'tBoss':
+                	var tabButtons = document.querySelectorAll('.boss');
+                    var restOfButtons = document.querySelectorAll('.quest, .other');
+                    restOfButtons.forEach(function(element) {
+                    	element.classList.add('invisible');
+                    	element.classList.remove('visible');
+                    });
+                    tabButtons.forEach(function(element) {
+                    	element.classList.remove('invisible');
+                    	element.classList.add('visible');
+                    });
+                    break;
+                case 'tOther':
+                	var tabButtons = document.querySelectorAll('.other');
+                    var restOfButtons = document.querySelectorAll('.quest, .boss');
+                    restOfButtons.forEach(function(element) {
+                    	element.classList.add('invisible');
+                    	element.classList.remove('visible');
+                    });
+                    tabButtons.forEach(function(element) {
+                    	element.classList.remove('invisible');
+                    	element.classList.add('visible');
+                    });
+                    break;
+			}
+            
+			document.querySelectorAll('.myButton').forEach(button => {
+            	var timer = button.nextElementSibling;
+            	var timeDisplay = button.nextElementSibling.nextElementSibling;
+            	if (!button.classList.contains('invisible')) {
+            	    timer.classList.remove('invisible');
+            	    timeDisplay.classList.remove('invisible');
+            	} else {
+            	    timer.classList.add('invisible');
+            	    timeDisplay.classList.add('invisible');
+            	}
+        	});
+            
+            tabs.forEach(t => {
+                if (t === tab) {
+                    t.classList.add('shown');
+                } else {
+                    t.classList.remove('shown');
+                }
+            });
+            
+        });
+    });
+    
+    var buttons = document.querySelectorAll('.myButton');
+    
+    buttons.forEach(function(button) {
+        var timer = document.createElement('span');
+        timer.classList.add('timer');
+        var timeDisplay = document.createElement('span');
+        timeDisplay.classList.add('timeDisplay');
+        
+        if (!button.classList.contains('invisible')) {
+        	timer.classList.remove('invisible');
+        	timeDisplay.classList.remove('invisible');
+    	} else {
+        	timer.classList.add('invisible');
+        	timeDisplay.classList.add('invisible');
+    	}
+		
+        var container = document.createElement('div');
+        container.appendChild(button);
+        container.appendChild(timer);
+        container.appendChild(timeDisplay);
+        
+        document.body.querySelector('.container').appendChild(container);
+        
+        var reactivationTime = localStorage.getItem(button.id + '_reactivationTime');
+
+        if (reactivationTime) {
+            var currentTime = new Date().getTime();
+            var timeDifference = reactivationTime - currentTime;
+
+            if (timeDifference <= 0) {
+                localStorage.removeItem(button.id + '_reactivationTime');
+                setButtonStatus(button, true); // Button is active
+					timer.classList.remove('textRed', 'textOrange', 'textYellow');
+            } else {
+                setButtonStatus(button, false); // Button is inactive
+                updateTimer(button, timeDifference);
+					if (timeDifference <= 3600000) {
+						if (timeDifference <= 1800000) {
+							if (timeDifference <= 900000) {
+								timer.classList.add('textRed');
+								timer.classList.remove('textOrange');
+							} else {
+								timer.classList.add('textOrange');
+								timer.classList.remove('textYellow');
+							}
+						} else {
+							timer.classList.add('textYellow');
+						}
+					}
+            }
+        } else {
+            setButtonStatus(button, true); // Button is active
+        }
+
+        button.addEventListener('click', function() {
+        	if (button.id === 'bClearAll') {
+            	localStorage.clear();
+                buttons.forEach(function(button) {
+        			setButtonStatus(button, true);
+                });
+            } else {
+                if (button.classList.contains('active')) {
+                    this.disabled = true;
+                    this.classList.remove('active');
+                    this.classList.add('inactive');
+
+                    // Determine reactivation time based on button ID
+                    var reactivationTime;
+                    var oneHour = 3600000;
+                    var oneDay = oneHour * 24;
+                    switch (button.id) {
+                        // 19 hours
+                        case 'bBan':
+                            reactivationTime = new Date().getTime() + 19 * oneHour;
+                            break;
+                        // 22 hours
+                        case 'bPen':
+                        case 'bOrt':
+                            reactivationTime = new Date().getTime() + 22 * oneHour;
+                          break;
+                        // 24 hours
+                        default:
+                            reactivationTime = new Date().getTime() + oneDay;
+                        }
+
+                    localStorage.setItem(button.id + '_reactivationTime', reactivationTime.toString());
+
+                    if (button.id !== 'bVac' && button.id !== 'bCle' && button.id !== 'bWar' && button.id !== 'bStr' && button.id !== 'bMer') {
+                        updateTimer(button, reactivationTime - new Date().getTime());
+                    } else {
+                        updateTimer(button, reactivationTime - new Date().getTime(), true);
+                    }
+                }
+            }
+        });
+    });
+
+    function updateTimer(button, timeDifference, is2AM) {
+        var timer = button.nextElementSibling;
+        var timeDisplay = button.nextElementSibling.nextElementSibling;
+        
+        var hours = Math.floor(timeDifference / (3600000));
+        var minutes = Math.floor((timeDifference % (3600000)) / (60000));
+        var seconds = Math.floor((timeDifference % (60000)) / 1000);
+        timer.innerHTML = hours.toString().padStart(2, '0') + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
+        
+        /*if (!button.classList.contains('invisible')) {
+        	timer.classList.remove('invisible');
+        	timeDisplay.classList.remove('invisible');
+    	} else {
+        	timer.classList.add('invisible');
+        	timeDisplay.classList.add('invisible');
+    	}*/
+
+		// Display time for buttons based on reset time
+        var currentTime = new Date();
+        if (is2AM) {
+			// Display 2 AM
+			var activeAgainTime = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), resetTime, 0, 0);
+			// Add the 'shifted' class since hours are always less than 100
+            timer.classList.add('shiftedTimer');
+            timeDisplay.classList.add('shiftedTimeDisplay');
+        } else {
+            // Display the time buttons with hours timers
+        	var activeAgainTime = new Date(currentTime.getTime() + timeDifference);
+            // Add the 'shifted' class if hours are less than 100
+            if (hours < 100) {
+                timer.classList.add('shiftedTimer');
+                timeDisplay.classList.add('shiftedTimeDisplay');
+            }
+        }
+		var hoursFormat = activeAgainTime.getHours().toString().padStart(2, '0');
+		var minutesFormat = activeAgainTime.getMinutes().toString().padStart(2, '0');
+		var secondsFormat = activeAgainTime.getSeconds().toString().padStart(2, '0');
+		timeDisplay.innerText = hoursFormat + ":" + minutesFormat + ":" + secondsFormat;
+    }
+    
+    // Create a single interval timer to update all timers
+	setInterval(function() {
+	    buttons.forEach(function(button) {
+	        var reactivationTime = localStorage.getItem(button.id + '_reactivationTime');
+			var timer = button.nextElementSibling;
+	        if (reactivationTime) {
+	            var currentTime = new Date().getTime();
+	            var timeDifference = reactivationTime - currentTime;
+
+				if (timeDifference <= 0) {
+					localStorage.removeItem(button.id + '_reactivationTime');
+					setButtonStatus(button, true); // Button is active
+					timer.classList.remove('textRed', 'textOrange', 'textYellow');
+				} else {
+					//setButtonStatus(button, false); // Button is inactive
+					updateTimer(button, timeDifference);
+					if (timeDifference <= 3600000) {
+						if (timeDifference <= 1800000) {
+							if (timeDifference <= 900000) {
+								timer.classList.add('textRed');
+								timer.classList.remove('textOrange');
+							} else {
+								timer.classList.add('textOrange');
+								timer.classList.remove('textYellow');
+							}
+						} else {
+							timer.classList.add('textYellow');
+						}
+					}
+				}
+	        }
+	    });
+		
+	}, 1000);
+
+    function setButtonStatus(button, active) {
+        var timer = button.nextElementSibling;
+        var timeDisplay = button.nextElementSibling.nextElementSibling;
+        
+        if (active) {
+            button.disabled = false;
+            button.classList.remove('inactive');
+            button.classList.add('active');
+            timer.innerHTML = "";
+            timeDisplay.innerText = "";
+        } else {
+            button.disabled = true;
+            button.classList.remove('active');
+            button.classList.add('inactive');
+        }
+    }
+};
+</script>
+</head>
+<body>
+
+
+<div class="container">
+    <div class="tabs">
+        <div id="tQuest" class="tab shown">Q</div>
+        <div id="tBoss" class="tab">B</div>
+        <div id="tOther" class="tab">O</div>
+    </div>
+	
+        <button id="bPen" class="myButton quest bPentora">Pentora</button>
+        <button id="bBan" class="myButton quest bOrthoma">Banuna</button>
+        <button id="bAur" class="myButton quest bGorgoros">Aurea</button>
+        <button id="bLev" class="myButton quest bLeviatacle">Leviatacle</button>
+        <button id="bGor" class="myButton quest bGorgoros">Gorgon</button>
+        <button id="bAda" class="myButton quest bGorgoros">Adamantite</button>
+        <button id="bDar" class="myButton quest bGorgoros">Darktaur</button>
+        <button id="bKra" class="myButton quest bRiftion">Krakomin</button>
+        <button id="bWul" class="myButton quest bRiftion">Wulan</button>
+        <button id="bObs" class="myButton quest bDoratia">Observer</button>
+        <button id="bZea" class="myButton quest bDoratia">Zealot</button>
+        <button id="bFor" class="myButton quest bDoratia">Forgotten</button>
+        <button id="bHun" class="myButton quest bHunterra">Hunterra</button>
+        <button id="bOrt" class="myButton quest bOrthoma">Orthoma</button>
+        <button id="bAre" class="myButton quest bOrthoma">Arena</button>
+		
+        <button id="bXal" class="myButton boss bPentora invisible">Xal'Du'Nar</button>
+        <button id="bSee" class="myButton boss bLeviatacle invisible">Seelacor</button>
+        <button id="bMed" class="myButton boss bGorgoros invisible">Medusa</button>
+        <button id="bKyk" class="myButton boss bGorgoros invisible">Kyklopes</button>
+        <button id="bTau" class="myButton boss bGorgoros invisible">Taurugar</button>
+        <button id="bMut" class="myButton boss bRiftion invisible">Mutabor</button>
+        <button id="bAmo" class="myButton boss bRiftion invisible">Amorpheon</button>
+        <button id="bTro" class="myButton boss bTrocker invisible">Trocker</button>
+        <button id="bAkr" class="myButton boss bAkrathes invisible">Akrathes</button>
+        <button id="bChi" class="myButton boss bHunterra invisible">Chilong</button>
+        <button id="bFro" class="myButton boss bFrostisso invisible">Frostisso</button>
+        <button id="bHor" class="myButton boss bAshmor invisible">Hornig</button>
+        <button id="bDog" class="myButton boss bAshmor invisible">Dogs</button>
+        <button id="bIgo" class="myButton boss bAshmor invisible">Igor</button>
+        <button id="bNek" class="myButton boss bAshmor invisible">Nekrion</button>
+        <button id="bTwi" class="myButton boss bTwins invisible">Twins</button>
+		
+    	<button id="bClearAll" class="myButton other noTimer invisible">Clear All</button>
+</div>
+</body>
+</html>
