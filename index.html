@@ -161,9 +161,8 @@ body {
 }
 
 .quest {}
-.focus {}
 .boss {}
-.misc {}
+.event {}
 .other {}
 .noTimer {}
 
@@ -189,7 +188,7 @@ window.onload = function() {
 			switch (tab.id) {
             	case 'tQuest':
                 	var tabButtons = document.querySelectorAll('.quest');
-                    var restOfButtons = document.querySelectorAll('.boss, .other');
+                    var restOfButtons = document.querySelectorAll('.boss, .event, .other');
                     restOfButtons.forEach(function(element) {
                     	element.classList.add('invisible');
                     	element.classList.remove('visible');
@@ -201,7 +200,19 @@ window.onload = function() {
                     break;
                 case 'tBoss':
                 	var tabButtons = document.querySelectorAll('.boss');
-                    var restOfButtons = document.querySelectorAll('.quest, .other');
+                    var restOfButtons = document.querySelectorAll('.quest, .event, .other');
+                    restOfButtons.forEach(function(element) {
+                    	element.classList.add('invisible');
+                    	element.classList.remove('visible');
+                    });
+                    tabButtons.forEach(function(element) {
+                    	element.classList.remove('invisible');
+                    	element.classList.add('visible');
+                    });
+                    break;
+                case 'tEvent':
+                	var tabButtons = document.querySelectorAll('.event');
+                    var restOfButtons = document.querySelectorAll('.quest, .boss, .other');
                     restOfButtons.forEach(function(element) {
                     	element.classList.add('invisible');
                     	element.classList.remove('visible');
@@ -213,7 +224,7 @@ window.onload = function() {
                     break;
                 case 'tOther':
                 	var tabButtons = document.querySelectorAll('.other');
-                    var restOfButtons = document.querySelectorAll('.quest, .boss');
+                    var restOfButtons = document.querySelectorAll('.quest, .boss, .event');
                     restOfButtons.forEach(function(element) {
                     	element.classList.add('invisible');
                     	element.classList.remove('visible');
@@ -319,6 +330,22 @@ window.onload = function() {
                     var oneHour = 3600000;
                     var oneDay = oneHour * 24;
                     switch (button.id) {
+                        // 1 hour
+                        case 'bWic1':
+                        case 'bWic2':
+                        case 'bWic3':
+                        case 'bWic4':
+                        case 'bWic5':
+                        case 'bWic6':
+                        case 'bWic7':
+                        case 'bWic8':
+                        case 'bWic9':
+                            reactivationTime = new Date().getTime() + oneHour;
+                            break;
+                        // 2 hours
+                        case 'bHex':
+                            reactivationTime = new Date().getTime() + 2 * oneHour;
+                            break;
                         // 19 hours
                         case 'bBan':
                             reactivationTime = new Date().getTime() + 19 * oneHour;
@@ -444,9 +471,10 @@ window.onload = function() {
 
 <div class="container">
     <div class="tabs">
-        <div id="tQuest" class="tab shown">Q</div>
-        <div id="tBoss" class="tab">B</div>
-        <div id="tOther" class="tab">O</div>
+        <div id="tQuest" class="tab shown">Quests</div>
+        <div id="tBoss" class="tab">Bosses</div>
+        <div id="tEvent" class="tab">Darkmoons</div>
+        <div id="tOther" class="tab">Reset</div>
     </div>
 	
         <button id="bPen" class="myButton quest bPentora">Pentora</button>
@@ -482,7 +510,18 @@ window.onload = function() {
         <button id="bNek" class="myButton boss bAshmor invisible">Nekrion</button>
         <button id="bTwi" class="myButton boss bTwins invisible">Twins</button>
 		
-    	<button id="bClearAll" class="myButton other noTimer invisible">Clear All</button>
+        <button id="bHex" class="myButton event bLeviatacle invisible">Hex</button>
+        <button id="bWic1" class="myButton event bLeviatacle invisible">Aurea</button>
+        <button id="bWic2" class="myButton event bLeviatacle invisible">Ashmor</button>
+        <button id="bWic3" class="myButton event bLeviatacle invisible">Nivalis</button>
+        <button id="bWic4" class="myButton event bLeviatacle invisible">Yabutu</button>
+        <button id="bWic5" class="myButton event bLeviatacle invisible">Fabulara</button>
+        <button id="bWic6" class="myButton event bLeviatacle invisible">Banuna</button>
+        <button id="bWic7" class="myButton event bLeviatacle invisible">Starfish</button>
+        <button id="bWic8" class="myButton event bLeviatacle invisible">Solahmar</button>
+        <button id="bWic9" class="myButton event bLeviatacle invisible">Treasure I.</button>
+		
+    	<button id="bClearAll" class="myButton other noTimer invisible">Reset All</button>
 </div>
 </body>
 </html>
