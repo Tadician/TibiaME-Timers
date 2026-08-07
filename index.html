@@ -40,9 +40,8 @@ body {
     cursor: pointer;
     position: relative;
 }
-
-.bAurea {
-    background-color: #0075ff;
+.bElarandor{
+    background-color: #36cf23;
 }
 
 .bPentora {
@@ -76,6 +75,10 @@ body {
 
 .bOrthoma {
     background-color: #F05733;
+}
+
+.bAric {
+    background-color: #aa3266;
 }
 
 .bTrocker {
@@ -161,8 +164,9 @@ body {
 }
 
 .quest {}
+.focus {}
 .boss {}
-.event {}
+.misc {}
 .other {}
 .noTimer {}
 
@@ -188,7 +192,7 @@ window.onload = function() {
 			switch (tab.id) {
             	case 'tQuest':
                 	var tabButtons = document.querySelectorAll('.quest');
-                    var restOfButtons = document.querySelectorAll('.boss, .event, .other');
+                    var restOfButtons = document.querySelectorAll('.boss, .other');
                     restOfButtons.forEach(function(element) {
                     	element.classList.add('invisible');
                     	element.classList.remove('visible');
@@ -200,19 +204,7 @@ window.onload = function() {
                     break;
                 case 'tBoss':
                 	var tabButtons = document.querySelectorAll('.boss');
-                    var restOfButtons = document.querySelectorAll('.quest, .event, .other');
-                    restOfButtons.forEach(function(element) {
-                    	element.classList.add('invisible');
-                    	element.classList.remove('visible');
-                    });
-                    tabButtons.forEach(function(element) {
-                    	element.classList.remove('invisible');
-                    	element.classList.add('visible');
-                    });
-                    break;
-                case 'tEvent':
-                	var tabButtons = document.querySelectorAll('.event');
-                    var restOfButtons = document.querySelectorAll('.quest, .boss, .other');
+                    var restOfButtons = document.querySelectorAll('.quest, .other');
                     restOfButtons.forEach(function(element) {
                     	element.classList.add('invisible');
                     	element.classList.remove('visible');
@@ -224,7 +216,7 @@ window.onload = function() {
                     break;
                 case 'tOther':
                 	var tabButtons = document.querySelectorAll('.other');
-                    var restOfButtons = document.querySelectorAll('.quest, .boss, .event');
+                    var restOfButtons = document.querySelectorAll('.quest, .boss');
                     restOfButtons.forEach(function(element) {
                     	element.classList.add('invisible');
                     	element.classList.remove('visible');
@@ -330,22 +322,6 @@ window.onload = function() {
                     var oneHour = 3600000;
                     var oneDay = oneHour * 24;
                     switch (button.id) {
-                        // 1 hour
-                        case 'bWic1':
-                        case 'bWic2':
-                        case 'bWic3':
-                        case 'bWic4':
-                        case 'bWic5':
-                        case 'bWic6':
-                        case 'bWic7':
-                        case 'bWic8':
-                        case 'bWic9':
-                            reactivationTime = new Date().getTime() + oneHour;
-                            break;
-                        // 2 hours
-                        case 'bHex':
-                            reactivationTime = new Date().getTime() + 2 * oneHour;
-                            break;
                         // 19 hours
                         case 'bBan':
                             reactivationTime = new Date().getTime() + 19 * oneHour;
@@ -473,14 +449,16 @@ window.onload = function() {
     <div class="tabs">
         <div id="tQuest" class="tab shown">Quests</div>
         <div id="tBoss" class="tab">Bosses</div>
-        <div id="tEvent" class="tab">Darkmoons</div>
         <div id="tOther" class="tab">Reset</div>
     </div>
 	
-        <button id="bPen" class="myButton quest bPentora">Pentora</button>
-        <button id="bBan" class="myButton quest bOrthoma">Banuna</button>
-        <button id="bAur" class="myButton quest bGorgoros">Aurea</button>
+        <button id="bDir" class="myButton quest bElarandor">Dire Animal</button>
+        <button id="bMan" class="myButton quest bElarandor">Rune Stone</button>
+        <button id="bTre" class="myButton quest bElarandor">Darktreant</button>
+        <button id="bDel" class="myButton quest bElarandor">Darkelves</button>
+        <button id="bDre" class="myButton quest bElarandor">Dreadelves</button>
         <button id="bLev" class="myButton quest bLeviatacle">Leviatacle</button>
+        <button id="bPen" class="myButton quest bPentora">Pentora</button>
         <button id="bGor" class="myButton quest bGorgoros">Gorgon</button>
         <button id="bAda" class="myButton quest bGorgoros">Adamantite</button>
         <button id="bDar" class="myButton quest bGorgoros">Darktaur</button>
@@ -490,16 +468,21 @@ window.onload = function() {
         <button id="bZea" class="myButton quest bDoratia">Zealot</button>
         <button id="bFor" class="myButton quest bDoratia">Forgotten</button>
         <button id="bHun" class="myButton quest bHunterra">Hunterra</button>
+        <button id="bAri" class="myButton quest bAric">Aric</button>
         <button id="bOrt" class="myButton quest bOrthoma">Orthoma</button>
         <button id="bAre" class="myButton quest bOrthoma">Arena</button>
 		
+        <button id="bKae" class="myButton boss bElarandor invisible">Kaelor</button>
         <button id="bXal" class="myButton boss bPentora invisible">Xal'Du'Nar</button>
         <button id="bSee" class="myButton boss bLeviatacle invisible">Seelacor</button>
         <button id="bMed" class="myButton boss bGorgoros invisible">Medusa</button>
         <button id="bKyk" class="myButton boss bGorgoros invisible">Kyklopes</button>
         <button id="bTau" class="myButton boss bGorgoros invisible">Taurugar</button>
-        <button id="bMut" class="myButton boss bRiftion invisible">Mutabor</button>
-        <button id="bAmo" class="myButton boss bRiftion invisible">Amorpheon</button>
+        <button id="bMut" class="myButton boss bAric invisible">Mutabor</button>
+        <button id="bAmo" class="myButton boss bAric invisible">Amorpheon</button>
+        <button id="bAmo" class="myButton boss bRiftion invisible">Biestig</button>
+        <button id="bAmo" class="myButton boss bDoratia invisible">Everdragon</button>
+        <button id="bAmo" class="myButton boss bRiftion invisible">Ten'ta'cul</button>
         <button id="bTro" class="myButton boss bTrocker invisible">Trocker</button>
         <button id="bAkr" class="myButton boss bAkrathes invisible">Akrathes</button>
         <button id="bChi" class="myButton boss bHunterra invisible">Chilong</button>
@@ -510,18 +493,7 @@ window.onload = function() {
         <button id="bNek" class="myButton boss bAshmor invisible">Nekrion</button>
         <button id="bTwi" class="myButton boss bTwins invisible">Twins</button>
 		
-        <button id="bHex" class="myButton event bLeviatacle invisible">Hex</button>
-        <button id="bWic1" class="myButton event bLeviatacle invisible">Aurea</button>
-        <button id="bWic2" class="myButton event bLeviatacle invisible">Ashmor</button>
-        <button id="bWic3" class="myButton event bLeviatacle invisible">Nivalis</button>
-        <button id="bWic4" class="myButton event bLeviatacle invisible">Yabutu</button>
-        <button id="bWic5" class="myButton event bLeviatacle invisible">Fabulara</button>
-        <button id="bWic6" class="myButton event bLeviatacle invisible">Banuna</button>
-        <button id="bWic7" class="myButton event bLeviatacle invisible">Starfish</button>
-        <button id="bWic8" class="myButton event bLeviatacle invisible">Solahmar</button>
-        <button id="bWic9" class="myButton event bLeviatacle invisible">Treasure I.</button>
-		
-    	<button id="bClearAll" class="myButton other noTimer invisible">Reset All</button>
+    	<button id="bClearAll" class="myButton other noTimer invisible">Clear All</button>
 </div>
 </body>
 </html>
