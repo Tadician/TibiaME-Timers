@@ -40,6 +40,7 @@ body {
     cursor: pointer;
     position: relative;
 }
+
 .bElarandor{
     background-color: #36cf23;
 }
@@ -59,12 +60,7 @@ body {
 .bRiftion {
     background-color: #fc4446;
 }
-   /* #B8860B (Gold)
-  //  #FF5733 (Coral)
-   // #9932CC (DarkOrchid)
-   // #20B2AA (LightSeaGreen) #008080
-	*/
-   
+
 .bDoratia {
     background-color: #20B2AA;
 }
@@ -323,7 +319,7 @@ window.onload = function() {
                     var oneDay = oneHour * 24;
                     switch (button.id) {
                         // 19 hours
-                        case 'bBan':
+                        case 'bAri':
                             reactivationTime = new Date().getTime() + 19 * oneHour;
                             break;
                         // 22 hours
@@ -452,11 +448,6 @@ window.onload = function() {
         <div id="tOther" class="tab">Reset</div>
     </div>
 	
-        <button id="bDir" class="myButton quest bElarandor">Dire Animal</button>
-        <button id="bMan" class="myButton quest bElarandor">Rune Stone</button>
-        <button id="bTre" class="myButton quest bElarandor">Darktreant</button>
-        <button id="bDel" class="myButton quest bElarandor">Darkelves</button>
-        <button id="bDre" class="myButton quest bElarandor">Dreadelves</button>
         <button id="bLev" class="myButton quest bLeviatacle">Leviatacle</button>
         <button id="bPen" class="myButton quest bPentora">Pentora</button>
         <button id="bGor" class="myButton quest bGorgoros">Gorgon</button>
@@ -480,9 +471,9 @@ window.onload = function() {
         <button id="bTau" class="myButton boss bGorgoros invisible">Taurugar</button>
         <button id="bMut" class="myButton boss bAric invisible">Mutabor</button>
         <button id="bAmo" class="myButton boss bAric invisible">Amorpheon</button>
-        <button id="bAmo" class="myButton boss bRiftion invisible">Biestig</button>
-        <button id="bAmo" class="myButton boss bDoratia invisible">Everdragon</button>
-        <button id="bAmo" class="myButton boss bRiftion invisible">Ten'ta'cul</button>
+        <button id="bBie" class="myButton boss bRiftion invisible">Biestig</button>
+        <button id="bEve" class="myButton boss bDoratia invisible">Everdragon</button>
+        <button id="bTen" class="myButton boss bRiftion invisible">Ten'ta'cul</button>
         <button id="bTro" class="myButton boss bTrocker invisible">Trocker</button>
         <button id="bAkr" class="myButton boss bAkrathes invisible">Akrathes</button>
         <button id="bChi" class="myButton boss bHunterra invisible">Chilong</button>
